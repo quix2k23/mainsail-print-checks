@@ -83,9 +83,40 @@ After a **Mainsail update**, run the install line again: updates overwrite the f
 | Installed but nothing changed in the dialog | Hard-refresh again. If it still doesn't show, try a private/incognito window to rule out caching, then open an issue with your Mainsail version. |
 | Nozzle popup never appears | Your slicer may not write the nozzle diameter into the G-code. Check **G-Code Files**, click a file, and look for a "Nozzle diameter" value in its details. No value, no check. |
 
+## Windows notes
+
+Everything in steps 1 to 4 works from Windows: the commands run on the printer, and Windows 10/11 already includes an `ssh` client.
+
+1. Open **Windows Terminal** or **PowerShell** (right-click the Start button).
+2. Run `ssh pi@192.168.1.50` (use your own address), accept the host-key question with `yes`, and type your password. Nothing shows while you type.
+3. Once the prompt changes to `pi@...`, you are on the printer. Paste the install line from step 2 with a **right-click** (or Ctrl+V in Windows Terminal) and press Enter.
+4. Hard-refresh Mainsail in your browser with **Ctrl+Shift+R**.
+
+If `ssh` isn't recognised, install the optional feature: *Settings > Apps > Optional features > Add a feature > OpenSSH Client*. Or use [PuTTY](https://www.putty.org/): enter the printer's address, click Open, log in, then continue from step 2 above.
+
+### Running the installer from the Windows PC instead (optional)
+
+You only need this if you'd rather not paste commands on the printer.
+
+1. Install [Python 3](https://www.python.org/downloads/) and tick **Add python.exe to PATH** during setup.
+2. Download `install.py` from this repository (open it on GitHub, click the **Download raw file** button).
+3. In PowerShell, in the folder where you saved it, run:
+
+```powershell
+python install.py --host pi@192.168.1.50
+```
+
+Use `python` (or `py`), not `python3`: on Windows `python3` often opens the Microsoft Store instead.
+
+Things that differ on Windows:
+
+- In PowerShell, `curl` is not the real curl. If you want to download the file from the command line, use `curl.exe -fsSLO https://raw.githubusercontent.com/quix2k23/mainsail-print-checks/main/install.py`.
+- `install-gui.sh` is Linux only. Use the commands above.
+- Running `install.py` *on* a Windows machine without `--host` won't work. It must be run on the machine that serves Mainsail (which is Linux), or aimed at it with `--host`.
+
 ## Installing from your own PC instead
 
-If you'd rather not log in to the printer, run this on your PC (needs Python 3 and ssh), after downloading `install.py` from this repo:
+If you'd rather not log in to the printer, run this on your PC (needs Python 3 and ssh), after downloading `install.py` from this repo (on Windows see the notes above and use `python` instead of `python3`):
 
 ```bash
 python3 install.py --host pi@192.168.1.50
