@@ -42,6 +42,8 @@ The popups never block you permanently: you can always choose to print anyway. T
 
 ## Install
 
+**New to ssh?** Follow the [step-by-step install tutorial](INSTALL.md). The short version is below.
+
 Log in to the machine that runs Mainsail (for example `ssh pi@your-printer.local`) and run:
 
 ```bash
